@@ -52,10 +52,10 @@ class Model(nn.Module):
             for j in range(self.max_ranks_per_batch):
                 end_scores[j].append(ranked_rewards[j][i][self.get_start_of_padding(ranked[j][i])])
 
-        loss = torch.tensor(0.0, requires_grad=True).to("cuda")
+        loss = torch.tensor(0.0, requires_grad=True).to(self.transformer.device)
         for i in range(bs):
             unpadded = [rank[i] for rank in ranked if
-                        not torch.equal(rank[i], torch.tensor(self.PAD_ID).repeat(rank[i].shape).to("cuda"))]
+                        not torch.equal(rank[i], torch.tensor(self.PAD_ID).repeat(rank[i].shape).to(self.transformer.device))]
             # If we don't have enough for a proper comparison, how should it be factored into the loss?
             if len(unpadded) > 1:
                 pairwise_rewards = torch.stack(
@@ -63,7 +63,7 @@ class Model(nn.Module):
                      for (j, k) in all_pairs(len(unpadded))])
                 mean = torch.mean(pairwise_rewards[~torch.any(pairwise_rewards.isnan())])
                 # Ideally, we'd just filter, not set the nan to zero
-                loss += torch.mean(torch.where(torch.isnan(mean).to("cuda"), torch.tensor(0.0).to("cuda"), mean))
+                loss = loss + torch.mean(torch.where(torch.isnan(mean.detach()), torch.tensor(0.0), mean.detach())).detach()
         loss = loss / bs
 
         return {
