@@ -1,6 +1,6 @@
 import json
 
-from transformers import TrainingArguments, AutoTokenizer, Trainer
+from transformers import TrainingArguments, AutoTokenizer, Trainer, T5EncoderModel
 from src import Model, RankingDataset, create_comparison_dataset, DataCollator
 
 MAX_RANKS_PER_BATCH = 2
@@ -29,9 +29,11 @@ training_args = TrainingArguments(
     save_total_limit=1,
 )
 
+base_model = T5EncoderModel.from_pretrained("google/flan-t5-small")
+
 model = Model(
-    "google/flan-t5-small",
-    tokenizer_path="google/flan-t5-small",
+    base_model,
+    tokenizer,
     max_ranks_per_batch=MAX_RANKS_PER_BATCH
 )
 
@@ -53,5 +55,3 @@ Trainer(
     train_dataset=train_dataset,
     data_collator=data_collator,
 ).train()
-
-
