@@ -109,8 +109,8 @@ class Model(nn.Module):
         inds = (input1 == self.PAD_ID).nonzero()
         return inds[0].item() if len(inds) > 0 else len(input1) - 1
 
-    def loss(self, outputs, batch):
-        return outputs["loss"]
+#     def loss(self, outputs, batch):
+#         return outputs["loss"]
 
 
 def all_pairs(n):
