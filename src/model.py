@@ -84,8 +84,9 @@ class Model(nn.Module):
                 effective_batch_size -= 1
 
         print("After pairwise loss")
+        
         print("batch size after")
-        print(effective_batch_size.shape)
+        print(effective_batch_size)
 
         loss = loss / effective_batch_size if effective_batch_size > 0 else loss
 
