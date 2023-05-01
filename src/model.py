@@ -34,6 +34,8 @@ class Model(nn.Module):
             inputs_embeds=inputs_embeds,
             **kwargs
         )
+        
+        return transformer_outputs
 
         print("After transformer outputs")
 
