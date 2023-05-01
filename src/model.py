@@ -60,6 +60,9 @@ class Model(nn.Module):
 
         loss = torch.tensor(0.0, device=self.transformer.device, requires_grad=True)
         effective_batch_size = bs
+        
+        print("batch size before")
+        print(bs.shape)
 
         print("Before pairwise loss")
 
@@ -81,6 +84,8 @@ class Model(nn.Module):
                 effective_batch_size -= 1
 
         print("After pairwise loss")
+        print("batch size after")
+        print(effective_batch_size.shape)
 
         loss = loss / effective_batch_size if effective_batch_size > 0 else loss
 
