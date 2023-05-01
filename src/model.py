@@ -86,11 +86,10 @@ class Model(nn.Module):
 
         print("Before return")
 
-        return loss
-#         return {
-#             "end_scores": end_scores,
-#             "loss": loss
-#         }
+        return {
+            "end_scores": end_scores,
+            "loss": loss
+        }
 
     def convert_tensors(self, *tensors):
         return [t.to(dtype=self.config.torch_dtype) if t is not None else None for t in tensors]
@@ -109,8 +108,8 @@ class Model(nn.Module):
         inds = (input1 == self.PAD_ID).nonzero()
         return inds[0].item() if len(inds) > 0 else len(input1) - 1
 
-#     def loss(self, outputs, batch):
-#         return outputs["loss"]
+    def loss(self, outputs, batch):
+        return outputs["loss"]
 
 
 def all_pairs(n):
