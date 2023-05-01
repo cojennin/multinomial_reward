@@ -58,7 +58,7 @@ class Model(nn.Module):
 
         print("After end scores")
 
-        loss = torch.tensor(0.0, device=self.transformer.device, requires_grad=True)
+        loss = torch.rand(1, device=self.transformer.device, requires_grad=True)
         
         return {
             "loss": loss
