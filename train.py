@@ -3,7 +3,7 @@ import json
 from transformers import TrainingArguments, AutoTokenizer, Trainer, T5EncoderModel
 from src import Model, RankingDataset, create_comparison_dataset, DataCollator
 
-MAX_RANKS_PER_BATCH = 8
+MAX_RANKS_PER_BATCH = 2
 MAX_LENGTH = 512
 
 
@@ -18,7 +18,7 @@ training_args = TrainingArguments(
     output_dir="./output",
     num_train_epochs=10,
     logging_steps=10,
-    gradient_accumulation_steps=1,
+    gradient_accumulation_steps=4,
     save_strategy="steps",
     per_device_train_batch_size=1,
     per_device_eval_batch_size=1,
