@@ -61,7 +61,8 @@ class Model(nn.Module):
         loss = torch.rand(1, device=self.transformer.device, requires_grad=True)
         
         return {
-            "loss": loss
+            "loss": loss,
+            "end_scores": end_scores
         }
         
         effective_batch_size = bs
