@@ -62,7 +62,7 @@ class Model(nn.Module):
         effective_batch_size = bs
         
         print("batch size before")
-        print(bs.shape)
+        print(input_ids.shape)
 
         print("Before pairwise loss")
 
