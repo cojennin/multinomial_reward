@@ -86,10 +86,11 @@ class Model(nn.Module):
 
         print("Before return")
 
-        return {
-            "end_scores": end_scores,
-            "loss": loss
-        }
+        return loss
+#         return {
+#             "end_scores": end_scores,
+#             "loss": loss
+#         }
 
     def convert_tensors(self, *tensors):
         return [t.to(dtype=self.config.torch_dtype) if t is not None else None for t in tensors]
