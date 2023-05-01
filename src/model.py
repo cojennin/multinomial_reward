@@ -91,7 +91,7 @@ class Model(nn.Module):
         loss = loss / effective_batch_size if effective_batch_size > 0 else loss
         
         print("loss after")
-        print(loss.shape)
+        print(loss)
 
         print("Before return")
 
