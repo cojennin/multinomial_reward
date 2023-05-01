@@ -60,12 +60,6 @@ class Model(nn.Module):
 
 #         loss = torch.rand(1, device=self.transformer.device, requires_grad=True)
 #         loss = torch.tensor(0.0, requires_grad=True).to(self.transformer.device)
-        loss = torch.rand(1, requires_grad=True).squeeze(0)
-        
-        return {
-            "loss": loss,
-            "end_scores": end_scores
-        }
         
         effective_batch_size = bs
         
@@ -100,10 +94,16 @@ class Model(nn.Module):
 
         print("Before return")
 
+        loss = torch.rand(1, requires_grad=True).squeeze(0)
+        
         return {
-            "end_scores": end_scores,
-            "loss": loss
+            "loss": loss,
+            "end_scores": end_scores
         }
+#         return {
+#             "end_scores": end_scores,
+#             "loss": loss
+#         }
 
     def convert_tensors(self, *tensors):
         return [t.to(dtype=self.config.torch_dtype) if t is not None else None for t in tensors]
