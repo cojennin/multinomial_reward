@@ -35,8 +35,6 @@ class Model(nn.Module):
             **kwargs
         )
         
-        return transformer_outputs
-
         print("After transformer outputs")
 
         hidden_states = transformer_outputs[0]
@@ -61,6 +59,11 @@ class Model(nn.Module):
         print("After end scores")
 
         loss = torch.tensor(0.0, device=self.transformer.device, requires_grad=True)
+        
+        return {
+            "loss": loss
+        }
+        
         effective_batch_size = bs
         
 #         print("batch size before")
